@@ -7,7 +7,7 @@ const ModList = () => {
   const [mods, setMods] = useState([]);
 
   useEffect(() => {
-    const apiUrl = 'http://localhost:3001';
+    const apiUrl = 'http://modauthorapi.onrender.com:3001';
     const token = localStorage.getItem('accessToken');
     axios.get(`${apiUrl}/mods`, {
       headers: {

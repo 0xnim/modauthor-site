@@ -5,7 +5,7 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const apiUrl = 'http://localhost:3001';
+  const apiUrl = 'http://modauthorapi.onrender.com';
 
   const handleLogin = async (e) => {
     e.preventDefault();
