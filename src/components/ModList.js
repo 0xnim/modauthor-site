@@ -44,7 +44,7 @@ const ModList = () => {
 
   return (
     <div className="mods-list-container">
-      <h2>List of Mods</h2>
+      <h2>Your Mods</h2>
       <table {...getTableProps()} className="table">
         <thead>
           {headerGroups.map((headerGroup) => (
