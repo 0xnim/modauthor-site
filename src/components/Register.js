@@ -42,9 +42,6 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
         </div>
         <button type="submit">Register</button>
       </form>
-      <div className="register-switch-link">
-        Already have an account? <button type="button" onClick={onSwitchToLogin}>Login here</button>
-      </div>
     </div>
   );
 };
