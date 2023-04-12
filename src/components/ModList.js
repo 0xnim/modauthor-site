@@ -2,29 +2,32 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTable } from 'react-table';
 import './ModList.css';
+import ModMenu from './ModMenu';
 
 const ModList = () => {
   const [mods, setMods] = useState([]);
+  const [selectedMod, setSelectedMod] = useState(null);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('accessToken');
-    axios.get(`${apiUrl}/mods`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      setMods(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    axios
+      .get(`${apiUrl}/mods`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setMods(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Mod ID', accessor: 'modID' },
+      { Header: 'Mod ID', accessor: 'modId' },
       { Header: 'Name', accessor: 'modName' },
       { Header: 'Description', accessor: 'modDescription' },
       { Header: 'Author', accessor: 'modAuthor' },
@@ -41,6 +44,15 @@ const ModList = () => {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
+
+  const handleSelectMod = (modId) => {
+    const mod = mods.find((mod) => mod.modId === modId);
+    setSelectedMod(mod);
+  };
+
+  const handleCloseMenu = () => {
+    setSelectedMod(null);
+  };
 
   return (
     <div className="mods-list-container">
@@ -59,7 +71,10 @@ const ModList = () => {
           {rows.map((row) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr
+                {...row.getRowProps()}
+                onClick={() => handleSelectMod(row.original.modId)}
+              >
                 {row.cells.map((cell) => (
                   <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 ))}
@@ -68,6 +83,9 @@ const ModList = () => {
           })}
         </tbody>
       </table>
+      {selectedMod && (
+        <ModMenu mod={selectedMod} onCloseMenu={handleCloseMenu} />
+      )}
     </div>
   );
 };
