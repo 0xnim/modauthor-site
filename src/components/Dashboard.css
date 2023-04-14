@@ -1,0 +1,11 @@
+.logout {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 200px; /* set the desired width for your footer */
+    height: 60px; /* set the desired height for your footer */
+    background-color: inherit; /* set the background color of your footer */
+    z-index: 999; /* set a high z-index to ensure the footer is always on top */
+    margin: 0; /* remove the default margin */
+    
+  }

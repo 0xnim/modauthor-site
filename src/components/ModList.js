@@ -4,7 +4,7 @@ import { useTable } from 'react-table';
 import './ModList.css';
 import ModMenu from './ModMenu';
 
-const ModList = () => {
+const ModList = (  ) => {
   const [mods, setMods] = useState([]);
   const [selectedMod, setSelectedMod] = useState(null);
 
@@ -27,7 +27,7 @@ const ModList = () => {
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Mod ID', accessor: 'modId' },
+      { Header: 'Mod ID', accessor: 'modID' },
       { Header: 'Name', accessor: 'modName' },
       { Header: 'Description', accessor: 'modDescription' },
       { Header: 'Author', accessor: 'modAuthor' },
@@ -46,7 +46,7 @@ const ModList = () => {
     tableInstance;
 
   const handleSelectMod = (modId) => {
-    const mod = mods.find((mod) => mod.modId === modId);
+    const mod = mods.find((mod) => mod.modID === modId);
     setSelectedMod(mod);
   };
 
@@ -56,35 +56,37 @@ const ModList = () => {
 
   return (
     <div className="mods-list-container">
-      <h2>Your Mods</h2>
-      <table {...getTableProps()} className="table">
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => handleSelectMod(row.original.modId)}
-              >
-                {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+      <div className="mods-list-change-container">
+        <h2>Your Mods</h2>
+        <table {...getTableProps()} className="table">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                 ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  onClick={() => handleSelectMod(row.values.modID)}
+                >
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {selectedMod && (
-        <ModMenu mod={selectedMod} onCloseMenu={handleCloseMenu} />
+        <ModMenu modObject={selectedMod} onCloseMenu={handleCloseMenu} />
       )}
     </div>
   );

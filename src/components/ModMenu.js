@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ModMenu = ({ modId, onCloseMenu }) => {
+const ModMenu = ({ modObject, onCloseMenu }) => {
+  var modId= modObject.modID;
   const [mod, setMod] = useState(null);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const ModMenu = ({ modId, onCloseMenu }) => {
   }, [modId]);
 
   if (!mod) {
+    //console.log(mod)
     return <div>Loading...</div>;
   }
 
