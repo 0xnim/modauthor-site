@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ModMenu.css';
 
 const ModMenu = ({ modObject, onCloseMenu }) => {
   const modId = modObject.modID;
@@ -57,7 +58,8 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
   }
 
   return (
-    <div>
+    <div class="mod-menu">
+      <label for="modName">Name:</label>
       <input
         type="text"
         name="modName"
@@ -65,6 +67,7 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
         readOnly={!editable}
         onChange={handleInputChange}
       />
+      <label for="modDescription">Description:</label>
       <input
         type="text"
         name="modDescription"
@@ -72,6 +75,24 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
         readOnly={!editable}
         onChange={handleInputChange}
       />
+      <label for="modVersion">Version:</label>
+      <input
+        type="text"
+        name="modVersion"
+        value={modifiedMod.modVersion}
+        readOnly={!editable}
+        onChange={handleInputChange}
+      />
+      <label for="modTags">Tags:</label>
+      <input
+        type="text"
+        name="modTags"
+        value={modifiedMod.modTags}
+        readOnly={!editable}
+        onChange={handleInputChange}
+      />
+      <div class="tag-instructions">Separate by commas</div>
+      
       {!editable ? (
         <button onClick={() => setEditable(true)}>Edit</button>
       ) : (
