@@ -88,7 +88,7 @@ const VersionList = ( modID ) => {
         </table>
       </div>
       {selectedMod && (
-        <VersionMenu modObject={selectedMod} onCloseMenu={handleCloseMenu} />
+        <VersionMenu versionId={selectedMod.modVersionId} onCloseMenu={handleCloseMenu} />
       )}
     </div>
   );
