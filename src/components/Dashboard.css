@@ -1,11 +1,48 @@
+.container {
+  margin: 0 auto;
+  max-width: 960px;
+  position: relative;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  background-color: inherit;
+  padding: 10px;
+  border: 1px solid #ccc;
+  z-index: 1;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit; /* Set the text color to inherit from the parent element */
+}
+
+.content {
+  margin-left: 220px; /* Adjust this value to match the width of the navbar plus any desired spacing */
+}
+
 .logout {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 200px; /* set the desired width for your footer */
-    height: 60px; /* set the desired height for your footer */
-    background-color: inherit; /* set the background color of your footer */
-    z-index: 999; /* set a high z-index to ensure the footer is always on top */
-    margin: 0; /* remove the default margin */
-    
-  }
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+}
+

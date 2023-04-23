@@ -6,6 +6,7 @@ const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
+  console.log(process.env);
 
   const handleLogin = async (e) => {
     e.preventDefault();

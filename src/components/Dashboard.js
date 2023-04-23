@@ -23,18 +23,29 @@ const Dashboard = ({ onLogout }) => {
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-no-mod-list-container">
-        <h2>Dashboard</h2>
-        <p>Welcome to your dashboard</p>
+      <div class="container">
+        <nav class="navbar">
+          <ul class="nav-links">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/mods">Mods</a></li>
+            <li><a href="/settings">Settings</a></li>
+          </ul>
+          <div class="logout">
+           <button onClick={handleLogout}>Logout</button> 
+          </div>
+        </nav>
       </div>
-      <ModList />
-      <div className="dashboard-no-mod-list-container">
-        <button onClick={handleOpenModForm}>{isFormOpen ? 'Close' : 'Add Mod'}</button>
-        {isFormOpen && <ModForm />}
-        <div class="logout">
-          <button onClick={handleLogout}>Logout</button> 
-        </div>
-      </div>
+        <div class="content">
+          <div className="dashboard-no-mod-list-container">
+            <h2>Dashboard</h2>
+            <p>Welcome to your dashboard</p>
+          </div>
+          <ModList />
+          <div className="dashboard-no-mod-list-container">
+            <button onClick={handleOpenModForm}>{isFormOpen ? 'Close' : 'Add Mod'}</button>
+            {isFormOpen && <ModForm />}
+          </div>
+       </div>    
     </div>
   );
 };
