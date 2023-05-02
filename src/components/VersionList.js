@@ -9,6 +9,7 @@ const VersionList = ( modID ) => {
   const [mods, setMods] = useState([]);
   const [selectedMod, setSelectedMod] = useState(null);
   const modId = modID.modID;
+  const [isFormOpen, setIsFormOpen] = useState(false);
   //modID is passed from ModMenu.js
 
   useEffect(() => {
@@ -57,6 +58,9 @@ const VersionList = ( modID ) => {
     setSelectedMod(null);
   };
 
+  const handleOpenVersionForm = () => {
+    setIsFormOpen(!isFormOpen);
+  };
     
 
   return (
@@ -89,6 +93,11 @@ const VersionList = ( modID ) => {
             })}
           </tbody>
         </table>
+        <div className="dashboard-no-mod-list-container">
+            <button class="add" onClick={handleOpenVersionForm}>{isFormOpen ? 'Close' : 'Add Version'}</button>
+            {isFormOpen && <AddVersion modID={modID.modID}
+            />}
+        </div>
       </div>
       {selectedMod && (
         <VersionMenu versionId={selectedMod.modVersionId} modId={modId} onCloseMenu={handleCloseMenu} />
