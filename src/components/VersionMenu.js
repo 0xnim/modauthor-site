@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './VersionMenu.css';
+import "./VersionMenu.css";
+
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+import AddFile from "./AddFile";
 
 const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [version, setVersion] = useState(null);
   const [files, setFiles] = useState([]);
+  const [fileAddOpen, setFileAddOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const token = localStorage.getItem('accessToken');
-    
+    const token = localStorage.getItem("accessToken");
+
     // Fetch version details
     axios
       .get(`${apiUrl}/mods/${modId}/versions/${versionId}`, {
@@ -24,7 +28,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
       .catch((error) => {
         console.error(error);
       });
-    
+
     // Fetch files for the version
     axios
       .get(`${apiUrl}/mods/${modId}/versions/${versionId}/files`, {
@@ -43,33 +47,31 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
 
   function formatFileSize(size) {
     if (size < 1024) {
-      return size + ' B';
+      return size + " B";
     } else if (size < 1024 * 1024) {
-      return (size / 1024).toFixed(2) + ' KB';
+      return (size / 1024).toFixed(2) + " KB";
     } else if (size < 1024 * 1024 * 1024) {
-      return (size / (1024 * 1024)).toFixed(2) + ' MB';
+      return (size / (1024 * 1024)).toFixed(2) + " MB";
     } else {
-      return (size / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
+      return (size / (1024 * 1024 * 1024)).toFixed(2) + " GB";
     }
   }
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  
+
   function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
-  
-  const handleAddFile = () => {
-    alert('Not implemented yet!');
 
+  const handleAddFile = () => {
+    setFileAddOpen(true);
   };
-  
 
   return (
     <div className="version-menu">
@@ -81,17 +83,37 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
         <div className="version-section">
           <h2>Files</h2>
           {files && (
-            <ul style={{ listStyleType: 'none', padding:0}}>
+            <ul style={{ listStyleType: "none", padding: 0 }}>
               {files.map((file) => (
-                <li key={file.id} style={{ listStyle: 'none', paddingLeft: 0, listStylePosition: 'inside' }}>
-                  <p>Type: {capitalizeFirstLetter(file.fileType)} <br>
-                  </br><a href={file.fileURL}>Download</a> {formatFileSize(file.fileSize)}<br></br>
-                  Upload Date: {formatDate(file.uploadDate)}</p>
+                <li
+                  key={file.id}
+                  style={{
+                    listStyle: "none",
+                    paddingLeft: 0,
+                    listStylePosition: "inside",
+                  }}
+                >
+                  <p>
+                    Type: {capitalizeFirstLetter(file.fileType)} <br></br>
+                    <a href={file.fileURL}>Download</a>{" "}
+                    {formatFileSize(file.fileSize)}
+                    <br></br>
+                    Upload Date: {formatDate(file.uploadDate)}
+                  </p>
                 </li>
               ))}
             </ul>
           )}
-          <button>Add</button>
+          <button onClick={handleAddFile}>Add</button>
+          {fileAddOpen && (
+            <div className="file-add">
+              <AddFile
+                modId={modId}
+                versionId={versionId}
+                onCloseMenu={onCloseMenu}
+              />
+            </div>
+          )}
         </div>
 
         <div className="version-section">
@@ -107,7 +129,9 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
           )}
         </div>
       </div>
-      <button class="bottom" onClick={onCloseMenu}>Close</button>
+      <button class="bottom" onClick={onCloseMenu}>
+        Close
+      </button>
     </div>
   );
 };
