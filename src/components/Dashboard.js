@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import ModList from './ModList';
-import ModForm from './AddModForm';
-//import ModMenu from './ModMenu';
+// import ModMenu from './ModMenu';
 import './Dashboard.css';
 
-const Dashboard = ({ onLogout }) => {
+import React, {useState} from 'react';
+
+import ModForm from './AddModForm';
+import ModList from './ModList';
+
+const Dashboard = ({onLogout}) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleLogout = () => {
@@ -12,14 +14,7 @@ const Dashboard = ({ onLogout }) => {
     onLogout();
   };
 
-  const handleOpenModForm = () => {
-    setIsFormOpen(!isFormOpen);
-  };
-
-
-
-
-  
+  const handleOpenModForm = () => { setIsFormOpen(!isFormOpen); };
 
   return (
     <div className="dashboard-container">
@@ -46,10 +41,9 @@ const Dashboard = ({ onLogout }) => {
           <ModList />
           <div className="dashboard-no-mod-list-container">
             <button class="add" onClick={handleOpenModForm}>{isFormOpen ? 'Close' : 'Add Mod'}</button>
-            {isFormOpen && <ModForm />}
-          </div>
-       </div>    
-    </div>
+            {isFormOpen && <ModForm />
+}</div>
+       </div>< /div>
   );
 };
 
