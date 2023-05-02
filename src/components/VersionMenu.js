@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './VersionMenu.css';
 
-const VersionMenu = ({ versionId, modId }) => {
+const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [version, setVersion] = useState(null);
   const [files, setFiles] = useState([]);
 
@@ -107,6 +107,7 @@ const VersionMenu = ({ versionId, modId }) => {
           )}
         </div>
       </div>
+      <button class="bottom" onClick={onCloseMenu}>Close</button>
     </div>
   );
 };

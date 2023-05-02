@@ -59,6 +59,8 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
     setIsVersionsOpen(!isVersionsOpen);
   };
 
+  
+
   if (!mod) {
     return <div>Loading...</div>;
   }

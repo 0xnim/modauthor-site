@@ -32,3 +32,11 @@
   padding: 0 1rem;
   z-index: 999;
 }
+
+.bottom {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 999;
+}
