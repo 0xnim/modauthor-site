@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './VersionMenu.css';
+import AddFile from './AddFile';
 
 const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [version, setVersion] = useState(null);
   const [files, setFiles] = useState([]);
+  const [fileAddOpen, setFileAddOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -66,7 +68,8 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   }
   
   const handleAddFile = () => {
-    alert('Not implemented yet!');
+    setFileAddOpen(true);
+
 
   };
   
@@ -91,7 +94,12 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
               ))}
             </ul>
           )}
-          <button>Add</button>
+          <button onClick={handleAddFile}>Add</button>
+          {fileAddOpen && (
+            <div className="file-add">
+              <AddFile modId={modId} versionId={versionId} onCloseMenu={onCloseMenu}/>
+            </div>
+          )}
         </div>
 
         <div className="version-section">

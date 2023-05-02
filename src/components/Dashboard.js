@@ -29,8 +29,8 @@ const Dashboard = ({ onLogout }) => {
             <img src="logo512.png"></img>
           </div>
           <ul class="nav-links">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/mods">Mods</a></li>
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="https://astromods.xyz">Mods</a></li>
             <li><a href="/settings">Settings</a></li>
           </ul>
           <div class="logout">
