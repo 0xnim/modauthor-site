@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useTable } from 'react-table';
 import VersionMenu from './VersionMenu';
 import './VersionList.css';
+import AddVersion from './AddVersion';
 
 const VersionList = ( modID ) => {
   const [mods, setMods] = useState([]);
