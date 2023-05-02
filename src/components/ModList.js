@@ -56,7 +56,7 @@ const ModList = (  ) => {
 
   return (
     <div className="mods-list-container">
-      <div className="mods-list-change-container">
+      <div className="mods-list-change-container" class="change ">
         <h2>Your Mods</h2>
         <table {...getTableProps()} className="table">
           <thead>

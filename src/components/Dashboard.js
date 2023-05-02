@@ -42,7 +42,7 @@ const Dashboard = ({ onLogout }) => {
           </div>
           <ModList />
           <div className="dashboard-no-mod-list-container">
-            <button onClick={handleOpenModForm}>{isFormOpen ? 'Close' : 'Add Mod'}</button>
+            <button class="add" onClick={handleOpenModForm}>{isFormOpen ? 'Close' : 'Add Mod'}</button>
             {isFormOpen && <ModForm />}
           </div>
        </div>    

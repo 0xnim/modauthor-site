@@ -1,6 +1,6 @@
 .container {
   margin: 0 auto;
-  max-width: 960px;
+  max-width: 9600px;
   position: relative;
 }
 
@@ -35,7 +35,8 @@
 }
 
 .content {
-  margin-left: 220px; /* Adjust this value to match the width of the navbar plus any desired spacing */
+  /* margin-left: 220px; /* Adjust this value to match the width of the navbar plus any desired spacing */
+  width:1000px;
 }
 
 .logout {
@@ -46,3 +47,7 @@
   padding-top: 10px;
 }
 
+
+.add {
+  margin-top: 12px;
+}

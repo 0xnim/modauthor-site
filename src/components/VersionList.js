@@ -7,7 +7,7 @@ import './VersionList.css';
 const VersionList = ( modID ) => {
   const [mods, setMods] = useState([]);
   const [selectedMod, setSelectedMod] = useState(null);
-  const modId=modID.modID;
+  const modId = modID.modID;
   //modID is passed from ModMenu.js
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const VersionList = ( modID ) => {
       })
       .then((response) => {
         setMods(response.data);
-        console.log(response.data)
+        //console.log(response.data)
       })
       .catch((error) => {
         console.error(error);
@@ -49,6 +49,7 @@ const VersionList = ( modID ) => {
   const handleSelectMod = (modId) => {
     const mod = mods.find((mod) => mod.modID === modId);
     setSelectedMod(mod);
+    //console.log("brr");
   };
 
   const handleCloseMenu = () => {
@@ -88,7 +89,7 @@ const VersionList = ( modID ) => {
         </table>
       </div>
       {selectedMod && (
-        <VersionMenu versionId={selectedMod.modVersionId} onCloseMenu={handleCloseMenu} />
+        <VersionMenu versionId={selectedMod.modVersionId} modId={modId} onCloseMenu={handleCloseMenu} />
       )}
     </div>
   );
