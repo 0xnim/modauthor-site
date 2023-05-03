@@ -1,11 +1,11 @@
 import "./VersionMenu.css";
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import AddFile from "./AddFile";
 
-const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
+const VersionMenu = ({versionId, modId, onCloseMenu}) => {
   const [version, setVersion] = useState(null);
   const [files, setFiles] = useState([]);
   const [fileAddOpen, setFileAddOpen] = useState(false);
