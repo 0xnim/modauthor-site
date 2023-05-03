@@ -23,7 +23,7 @@ const Dashboard = ({ onLogout }) => {
       <div class="container">
         <nav class="navbar">
           <div class="nav-icon">
-            <img src="logo512.png"></img>
+            <img src="/logo512.png"></img>
           </div>
           <ul class="nav-links">
             <li>

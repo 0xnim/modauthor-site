@@ -73,17 +73,38 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
     setFileAddOpen(true);
   };
 
+  const handleDeleteFile = async (fileId) => {
+    console.log("Deleting file with ID:", fileId);
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const token = localStorage.getItem("accessToken");
+
+    try {
+      const response = await axios.delete(
+        `${apiUrl}/mods/${modId}/versions/${versionId}/files/${fileId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert(response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="version-menu">
       <h1 id="top">
         {modId} {version && version.versionNumber}
       </h1>
 
-      <div className="version-sections">
+      <div className="version-sections" class="version-sections">
         <div className="version-section">
           <h2>Files</h2>
           {files && (
-            <ul style={{ listStyleType: "none", padding: 0 }}>
+            <ul style={{ listStyleType: "none", padding: 0 }} class="file-ul">
               {files.map((file) => (
                 <li
                   key={file.id}
@@ -100,6 +121,9 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
                     <br></br>
                     Upload Date: {formatDate(file.uploadDate)}
                   </p>
+                  <button onClick={() => handleDeleteFile(file.fileID)}>
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
