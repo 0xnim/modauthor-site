@@ -1,19 +1,20 @@
 .version-menu {
-    position: fixed;
-    top: 0;
-    flex-wrap: wrap;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(41, 54, 70, 1);
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: auto;
-    flex-direction: column;
-    
+  position: fixed;
+  top: 0;
+  flex-wrap: wrap;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(41, 54, 70, 1);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  flex-direction: column;
+  overflow: auto;
 }
+
 
   
 .tag-instructions {
@@ -34,9 +35,23 @@
 }
 
 .bottom {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
-  display: flex;
-  justify-content: space-between;
+  right: 20px;
   z-index: 999;
+}
+
+.version-sections {
+  margin-top: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-ul li {
+  border: 1px solid #ccc;
+  border-radius: 11px;
+  padding-top: 10px;
+  margin-bottom: 10px;
 }
