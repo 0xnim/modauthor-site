@@ -42,14 +42,17 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
     <div className="file-add">
       <form onSubmit={handleAddFile}>
         <div className="form-control" class="form-control">
-          <label htmlFor="fileType">File Type</label>
-          <input
-            type="text"
-            id="fileType"
-            value={fileType}
-            onChange={(e) => setFileType(e.target.value)}
-            required
-          />
+        <label htmlFor="fileType">File Type</label>
+        <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)}>
+            <option value="">Select a file type</option>
+            <option value="mod">Mod/DLL</option>
+            <option value="pack">Part Pack</option>
+            <option value="texture">Texture</option>
+            <option value="mod-zip">Zip</option>
+            <option value="plugin">Plugin</option>
+            {/* add more options as needed */}
+        </select>
+
           <label htmlFor="fileSize">File Size</label>
           <input
             type="text"
