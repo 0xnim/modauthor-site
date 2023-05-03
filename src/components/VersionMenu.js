@@ -121,8 +121,9 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
                     <br></br>
                     Upload Date: {formatDate(file.uploadDate)}
                   </p>
-                  <button onClick={() => handleDeleteFile(file.fileID)}>Delete</button>
-
+                  <button onClick={() => handleDeleteFile(file.fileID)}>
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
