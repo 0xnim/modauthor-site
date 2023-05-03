@@ -5,12 +5,18 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [captchaValue, setCaptchaValue] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
-  console.log(process.env);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
+    // Check if the user has passed the ReCAPTCHA verification
+    if (!captchaValue) {
+      alert('Please verify that you are not a robot');
+      return;
+    }
+
     try {
       const response = await axios.post(`${apiUrl}/auth`, { username, password });
       const accessToken = response.data.accessToken;
@@ -20,6 +26,10 @@ const Login = ({ onLogin }) => {
       console.error(error);
       alert('Invalid username or password');
     }
+  };
+
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value);
   };
 
   return (

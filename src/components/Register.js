@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Register.css';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Register = ({ onRegister, onSwitchToLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [code, setCode] = useState('');
+  const [token, setToken] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
+  const siteKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${apiUrl}/register`, { username, password, code });
+      const response = await axios.post(`${apiUrl}/register`, { username, password, captchaToken: token });
       if (response.status === 201) {
         const accessToken = response.data.accessToken;
         localStorage.setItem('accessToken', accessToken);
@@ -22,6 +24,10 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
       console.error(error);
       alert('Registration failed');
     }
+  };
+
+  const onCaptchaChange = (value) => {
+    setToken(value);
   };
 
   return (
@@ -37,8 +43,7 @@ const Register = ({ onRegister, onSwitchToLogin }) => {
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="form-group">
-          <label htmlFor="code">Registration Code:</label>
-          <input type="text" id="code" value={code} onChange={(e) => setCode(e.target.value)} />
+          <ReCAPTCHA sitekey={siteKey} onChange={onCaptchaChange} />
         </div>
         <button type="submit">Register</button>
       </form>
