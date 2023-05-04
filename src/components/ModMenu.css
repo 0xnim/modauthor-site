@@ -11,6 +11,7 @@
     align-items: center;
     pointer-events: auto;
     flex-direction: column;
+    overflow: auto;
     
 }
 
