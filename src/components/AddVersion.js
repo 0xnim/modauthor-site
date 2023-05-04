@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './AddVersion.css';
 
-const AddVersion = (modIDInput) => {
+const AddVersion = ({ modIDInput, onCloseMenu }) => {
     const modID = modIDInput.modID;
     const [modId, setModId] = useState(modID);
     const [versionNumber, setVersionNumber] = useState('');
@@ -55,8 +55,8 @@ const AddVersion = (modIDInput) => {
 
     return (
         <div>
-            <form onSubmit={handleAddVersion}>
-                <div className="form-control" class="form-control">
+            <div className="form-control" class="form-control">
+                <form onSubmit={handleAddVersion}>
                     <label htmlFor="modId">Mod ID</label>
                     <input
                         type="text" id="modId" value={modId} onChange={(e) => setModId(e.target.value)} required />
@@ -70,8 +70,9 @@ const AddVersion = (modIDInput) => {
                     <input
                         type="text" id="changelog" value={changelog} onChange={(e) => setChangelog(e.target.value)} required />
                     <button className="btn btn-primary" onClick={console.log("")}>Add Version</button>
-                </div>
-            </form>
+                </form>
+                <button onClick={() => onCloseMenu()}>Close</button>
+            </div>
         </div>
     );
 
