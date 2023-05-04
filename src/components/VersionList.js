@@ -95,7 +95,7 @@ const VersionList = ( modID ) => {
         </table>
         <div className="dashboard-no-mod-list-container">
             <button class="add" onClick={handleOpenVersionForm}>{isFormOpen ? 'Close' : 'Add Version'}</button>
-            {isFormOpen && <AddVersion modID={modID.modID} onCloseMenu={() => setIsFormOpen(false)}
+            {isFormOpen && <AddVersion modIDInput={modID.modID} onCloseMenu={() => setIsFormOpen(false)}
             />}
         </div>
       </div>
