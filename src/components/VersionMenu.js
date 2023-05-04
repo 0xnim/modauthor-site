@@ -7,12 +7,15 @@ import AddFile from "./AddFile";
 
 import AddDependency from "./AddDependency";
 
+import EditDependency from "./EditDependency";
+
 const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [version, setVersion] = useState(null);
   const [files, setFiles] = useState([]);
   const [fileAddOpen, setFileAddOpen] = useState(false);
   const [dependencies, setDependencies] = useState([]);
   const [dependencyAddOpen, setDependencyAddOpen] = useState(false);
+  const [dependencyEditOpen, setDependencyEditOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -57,7 +60,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
       })
       .then((response) => {
         setDependencies(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       }
       )
       .catch((error) => {
@@ -141,6 +144,11 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const handleCloseAddDependency = () => {
     setDependencyAddOpen(false);
   };
+
+  const handleCloseEditDependency = () => {
+    setDependencyEditOpen(false);
+  };
+
     
 
   return (
@@ -198,7 +206,8 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
                   <p>{dependency.dependencyModID}<br></br>
                     {dependency.minimumDependencyVersion} - {dependency.maximumDependencyVersion}
                   </p>
-                  <button onClick={() => alert("Not Implemented Yet")}>Edit</button> <br></br>
+                  <button onClick={() => setDependencyEditOpen(true)}>Edit</button> <br></br>
+                  {dependencyEditOpen && (<EditDependency modId={modId} versionId={version.modVersionId} dependencyId={dependency.id} onCloseMenu={handleCloseEditDependency} />)}
                   <button onClick={() => handleDeleteDependency(modId, dependency.modVerisonId, dependency.id)}>Delete</button>
                 </li>
               ))}
