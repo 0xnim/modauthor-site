@@ -69,7 +69,7 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
             onChange={(e) => setFileURL(e.target.value)}
             required
           />
-          <button className="btn btn-primary" onClick={console.log("")}>
+          <button className="btn btn-primary">
             Add File
           </button>
         </div>

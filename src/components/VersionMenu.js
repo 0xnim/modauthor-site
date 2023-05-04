@@ -5,10 +5,14 @@ import React, { useEffect, useState } from "react";
 
 import AddFile from "./AddFile";
 
+import AddDependency from "./AddDependency";
+
 const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [version, setVersion] = useState(null);
   const [files, setFiles] = useState([]);
   const [fileAddOpen, setFileAddOpen] = useState(false);
+  const [dependencies, setDependencies] = useState([]);
+  const [dependencyAddOpen, setDependencyAddOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -23,7 +27,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
       })
       .then((response) => {
         setVersion(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -38,11 +42,30 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
       })
       .then((response) => {
         setFiles(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
+
+      // Fetch dependencies for the version
+      axios
+      .get(`${apiUrl}/mods/${modId}/dependencies/${versionId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setDependencies(response.data);
+        console.log(response.data);
+      }
+      )
+      .catch((error) => {
+        console.error(error);
+      }
+      );
+
+
   }, [versionId]);
 
   function formatFileSize(size) {
@@ -94,6 +117,32 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
     }
   };
 
+  const handleDeleteDependency = async (modId, versionId, dependencyId) => {
+    console.log("Deleting dependency with ID:", dependencyId);
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const token = localStorage.getItem("accessToken");
+
+    try {
+      const response = await axios.delete(
+        `${apiUrl}/mods/${modId}/dependencies/${versionId}/${dependencyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert(response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCloseAddDependency = () => {
+    setDependencyAddOpen(false);
+  };
+    
+
   return (
     <div className="version-menu">
       <h1 id="top">
@@ -104,7 +153,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
         <div className="version-section">
           <h2>Files</h2>
           {files && (
-            <ul style={{ listStyleType: "none", padding: 0 }} class="file-ul">
+            <ul style={{ listStyleType: "none", padding: 0 }} class="ul-class">
               {files.map((file) => (
                 <li
                   key={file.id}
@@ -142,14 +191,25 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
 
         <div className="version-section">
           <h2>Dependencies</h2>
-          {version && version.dependencies && (
-            <ul>
-              {version.dependencies.map((dependency) => (
+          {version && dependencies && (
+            <><ul class="ul-class" style={{ listStyleType: "none", padding: 0 }}>
+              {dependencies.map((dependency) => (
                 <li key={dependency.id}>
-                  {dependency.modId} {dependency.versionNumber}
+                  <p>{dependency.dependencyModID}<br></br>
+                    {dependency.minimumDependencyVersion} - {dependency.maximumDependencyVersion}
+                  </p>
+                  <button onClick={() => alert("Not Implemented Yet")}>Edit</button> <br></br>
+                  <button onClick={() => handleDeleteDependency(modId, dependency.modVerisonId, dependency.id)}>Delete</button>
                 </li>
               ))}
             </ul>
+            <button onClick={() => setDependencyAddOpen(true)}>Add Dependency</button> <br></br>
+            {dependencyAddOpen && (
+              <div>
+                <AddDependency versionId={version.modVersionId} modId={version.modId} onCloseMenu={handleCloseAddDependency}/>
+              </div>
+            )}
+            </>
           )}
         </div>
       </div>
