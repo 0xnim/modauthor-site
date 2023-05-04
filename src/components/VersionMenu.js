@@ -16,6 +16,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [dependencies, setDependencies] = useState([]);
   const [dependencyAddOpen, setDependencyAddOpen] = useState(false);
   const [dependencyEditOpen, setDependencyEditOpen] = useState(false);
+  const [reloadCurrent, setReloadCurrent] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -69,7 +70,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
       );
 
 
-  }, [versionId]);
+  }, [versionId, reloadCurrent]);
 
   function formatFileSize(size) {
     if (size < 1024) {
@@ -147,6 +148,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
 
   const handleCloseEditDependency = () => {
     setDependencyEditOpen(false);
+    setReloadCurrent(true);
   };
 
     
