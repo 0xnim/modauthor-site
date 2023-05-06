@@ -209,7 +209,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
                     {dependency.minimumDependencyVersion} - {dependency.maximumDependencyVersion}
                   </p>
                   <button onClick={() => setDependencyEditOpen(true)}>Edit</button> <br></br>
-                  {dependencyEditOpen && (<EditDependency modId={modId} versionId={version.modVersionId} dependencyId={dependency.id} onCloseMenu={handleCloseEditDependency} />)}
+                  {dependencyEditOpen && (<EditDependency modId={modId} versionId={version.modVersionID} dependencyId={dependency.id} onCloseMenu={handleCloseEditDependency} />)}
                   <button onClick={() => handleDeleteDependency(modId, dependency.modVerisonId, dependency.id)}>Delete</button>
                 </li>
               ))}
@@ -217,7 +217,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
             <button onClick={() => setDependencyAddOpen(true)}>Add Dependency</button> <br></br>
             {dependencyAddOpen && (
               <div>
-                <AddDependency versionId={version.modVersionId} modId={version.modId} onCloseMenu={handleCloseAddDependency}/>
+                <AddDependency versionId={version.modVersionID} modId={version.modId} onCloseMenu={handleCloseAddDependency}/>
               </div>
             )}
             </>

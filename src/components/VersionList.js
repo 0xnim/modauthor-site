@@ -32,7 +32,7 @@ const VersionList = ( modID ) => {
 
   const columns = React.useMemo(
     () => [
-      { Header: 'Version ID', accessor: 'modVersionId' },
+      { Header: 'Version ID', accessor: 'modVersionID' },
       { Header: 'Mod ID', accessor: 'modId' },
       { Header: 'Version', accessor: 'versionNumber' },
       { Header: 'Release Date', accessor: 'releaseDate' },
@@ -100,7 +100,7 @@ const VersionList = ( modID ) => {
         </div>
       </div>
       {selectedMod && (
-        <VersionMenu versionId={selectedMod.modVersionId} modId={modId} onCloseMenu={handleCloseMenu} />
+        <VersionMenu versionId={selectedMod.modVersionID} modId={modId} onCloseMenu={handleCloseMenu} />
       )}
     </div>
   );
