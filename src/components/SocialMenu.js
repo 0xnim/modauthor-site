@@ -45,7 +45,6 @@ const ModInfoForm = ( modIDInput ) => {
               setModInfoExists(true);
             } else {
               console.error(response);
-              alert("Failed to get Mod Info.");
             }
           } catch (error) {
             if (error.response && error.response.status === 401) {
@@ -53,7 +52,6 @@ const ModInfoForm = ( modIDInput ) => {
               // handle unauthorized access here
             } else {
               console.error(error);
-              alert("Failed to get Mod Info.");
             }
           }
         };
