@@ -3,12 +3,15 @@ import axios from 'axios';
 import './ModMenu.css';
 import VersionList from './VersionList';
 
+import ModInfoForm from './SocialMenu';
+
 const ModMenu = ({ modObject, onCloseMenu }) => {
   const modId = modObject.modID;
   const [mod, setMod] = useState(null);
   const [editable, setEditable] = useState(false);
   const [modifiedMod, setModifiedMod] = useState(null);
   const [isVersionsOpen, setIsVersionsOpen] = useState(false);
+  const [isSocialOpen, setIsSocialOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -57,6 +60,10 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
 
   const handleVersionsButton = () => {
     setIsVersionsOpen(!isVersionsOpen);
+  };
+
+  const handleSocialButton = () => {
+    setIsSocialOpen(!isSocialOpen);
   };
 
   
@@ -110,6 +117,10 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
           <button onClick={handleCancelClick}>Cancel</button>
           <button onClick={handleSaveClick}>Save</button>
         </>
+      )}
+      <button onClick={handleSocialButton}>Social</button>
+      {isSocialOpen && (
+      <ModInfoForm modID={modId}/>
       )}
       {!editable && <button onClick={onCloseMenu}>Close</button> }
       
