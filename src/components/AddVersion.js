@@ -3,7 +3,7 @@ import axios from 'axios';
 import './AddVersion.css';
 
 const AddVersion = ({ modIDInput, onCloseMenu }) => {
-    const modID = modIDInput.modID;
+    const modID = modIDInput;
     const [modId, setModId] = useState(modID);
     const [versionNumber, setVersionNumber] = useState('');
     const [releaseDate, setReleaseDate] = useState('');
@@ -35,9 +35,11 @@ const AddVersion = ({ modIDInput, onCloseMenu }) => {
                 setReleaseDate('');
                 setChangelog('');
                 alert('Version added successfully!');
+                onCloseMenu();
             } else {
                 console.error(response);
                 alert('Failed to add version.');
+                onCloseMenu();
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {
@@ -59,7 +61,7 @@ const AddVersion = ({ modIDInput, onCloseMenu }) => {
                 <form onSubmit={handleAddVersion}>
                     <label htmlFor="modId">Mod ID</label>
                     <input
-                        type="text" id="modId" value={modId} onChange={(e) => setModId(e.target.value)} required />
+                        type="text" id="modId" value={modId} onChange={(e) => setModId(e.target.value)} readOnly />
                     <label htmlFor="versionNumber">Version</label>
                     <input
                         type="text" id="versionNumber" value={versionNumber} onChange={(e) => setVersionNumber(e.target.value)} required />
@@ -75,7 +77,6 @@ const AddVersion = ({ modIDInput, onCloseMenu }) => {
             </div>
         </div>
     );
-
 };
 
 export default AddVersion;
