@@ -1,12 +1,31 @@
 // import ModMenu from './ModMenu';
 import "./Dashboard.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import ModForm from "./AddModForm";
 import ModList from "./ModList";
 
 const Dashboard = ({ onLogout }) => {
+  const notify = () => toast.info('If you want to sponsor and have your mod appear at the top of the list, contact me! contact.urlou@passfwd.com', {
+    position: "top-right",
+    autoClose: 7000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+    toastId: 1,
+  });
+
+  useEffect(() => {
+    notify();
+  }, []);
+
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(true);
 
@@ -41,6 +60,10 @@ const Dashboard = ({ onLogout }) => {
               </li>
               <li>
                 <a href="/settings">Settings</a>
+              </li>
+              <li>
+                <a onClick={notify} href="#">Sponsor</a>
+                <ToastContainer />
               </li>
             </ul>
             <div class="logout">
