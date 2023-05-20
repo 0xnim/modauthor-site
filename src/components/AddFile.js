@@ -1,37 +1,57 @@
 import axios from "axios";
-import { useEffect } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 
-// POST /mods/:modId/versions/:versionId/files - Add a file to a version
-// versionId, fileType, fileSize, fileURL
 const AddFile = ({ modId, versionId, onCloseMenu }) => {
   const [fileType, setFileType] = useState("");
-  const [fileSize, setFileSize] = useState("");
+  const [file, setFile] = useState(null);
   const [fileURL, setFileURL] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL;
+  const fileApiURL = process.env.REACT_APP_FILE_API_URL;
 
   const handleAddFile = async (e) => {
     e.preventDefault();
 
     const token = localStorage.getItem("accessToken");
 
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Create variable for fileSize and set it to the size of the file
+    let fileSize = file.size;
+
     try {
       const response = await axios.post(
-        `${apiUrl}/mods/${modId}/versions/${versionId}/files`,
+        `${fileApiURL}/upload`,
+        formData,
         {
-          versionId,
-          fileType,
-          fileSize,
-          fileURL,
-        },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          },
+        }
+      );
+      console.log(response.data);
+      let path = response.data.uniqueId + "/" + response.data.filename;
+      setFileURL(`https://cdn.astromods.xyz/content/${path}`);
+
+      const fileData = {
+        versionId,
+        fileType,
+        fileSize,
+        fileURL: `https://cdn.astromods.xyz/content/${path}`,
+      };
+
+      const response2 = await axios.post(
+        `${apiUrl}/mods/${modId}/versions/${versionId}/files`,
+        fileData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      alert(response.data);
+      alert(response2.data);
       onCloseMenu();
     } catch (error) {
       console.error(error);
@@ -52,23 +72,16 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
             <option value="plugin">Plugin</option>
             {/* add more options as needed */}
         </select>
+          {/* Let user upload file by reuqesting to ${fileApiURL}/upload */}
 
-          <label htmlFor="fileSize">File Size</label>
+          <label htmlFor="fileUpload">File:</label>
           <input
-            type="text"
-            id="fileSize"
-            value={fileSize}
-            onChange={(e) => setFileSize(e.target.value)}
+            type="file"
+            id="fileUpload"
+            onChange={(e) => setFile(e.target.files[0])}
             required
           />
-          <label htmlFor="fileURL">File URL</label>
-          <input
-            type="text"
-            id="fileURL"
-            value={fileURL}
-            onChange={(e) => setFileURL(e.target.value)}
-            required
-          />
+
           <button className="btn btn-primary">
             Add File
           </button>
