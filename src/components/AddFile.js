@@ -70,6 +70,7 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
             <option value="texture">Texture</option>
             <option value="mod-zip">Zip</option>
             <option value="plugin">Plugin</option>
+            <option value="planet">Planet</option>
             {/* add more options as needed */}
         </select>
           {/* Let user upload file by reuqesting to ${fileApiURL}/upload */}
