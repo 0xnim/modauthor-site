@@ -5,6 +5,7 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
   const [fileType, setFileType] = useState("");
   const [file, setFile] = useState(null);
   const [fileURL, setFileURL] = useState("");
+  const [ownURL, setOwnURL] = useState(false);
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const fileApiURL = process.env.REACT_APP_FILE_API_URL;
@@ -62,26 +63,45 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
     <div className="file-add">
       <form onSubmit={handleAddFile}>
         <div className="form-control" class="form-control">
-        <label htmlFor="fileType">File Type</label>
-        <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)}>
-            <option value="">Select a file type</option>
-            <option value="mod">Mod/DLL</option>
-            <option value="pack">Part Pack</option>
-            <option value="texture">Texture</option>
-            <option value="mod-zip">Zip</option>
-            <option value="plugin">Plugin</option>
-            <option value="planet">Planet</option>
-            {/* add more options as needed */}
-        </select>
+          <label htmlFor="fileType">File Type</label>
+          <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)}>
+              <option value="">Select a file type</option>
+              <option value="mod">Mod/DLL</option>
+              <option value="pack">Part Pack</option>
+              <option value="texture">Texture</option>
+              <option value="mod-zip">Zip</option>
+              <option value="plugin">Plugin</option>
+              <option value="planet">Planet</option>
+              {/* add more options as needed */}
+          </select>
           {/* Let user upload file by reuqesting to ${fileApiURL}/upload */}
+          <div>
+            {!ownURL ? (
+            <>
+              <label htmlFor="fileUpload">File:</label>
+              <input
+                type="file"
+                id="fileUpload"
+                onChange={(e) => setFile(e.target.files[0])}
+                required
+              />
+            </>) : (
+            <>
+              <label htmlFor="fileURL">File URL:</label>
+              <input type="text" id="fileURL" value={fileURL} onChange={(e) => setFileURL(e.target.value)} required />
+              <p>Add a github file link with a latest file version in the URL.</p>
+            </>
+            )}
+          </div>
 
-          <label htmlFor="fileUpload">File:</label>
-          <input
-            type="file"
-            id="fileUpload"
-            onChange={(e) => setFile(e.target.files[0])}
-            required
-          />
+          {/* Button to add a field to insert your own link */}
+          {!ownURL ? (
+            <>
+          <button type="button" onClick={() => setOwnURL(!ownURL)}>Set Own URL</button>
+          </>) : (
+            <>
+          <button type="button" onClick={() => setOwnURL(!ownURL)}>Upload File</button>
+          </>)}
 
           <button className="btn btn-primary">
             Add File

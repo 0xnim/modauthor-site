@@ -65,12 +65,13 @@ const AddVersion = ({ modIDInput, onCloseMenu }) => {
                     <label htmlFor="versionNumber">Version</label>
                     <input
                         type="text" id="versionNumber" value={versionNumber} onChange={(e) => setVersionNumber(e.target.value)} required />
+                    <p>Use 'latest' to have it always pull that version.</p>
                     <label htmlFor="releaseDate">Release Date</label>
                     <input
                         type="date" id="releaseDate" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
                     <label htmlFor="changelog">Changelog</label>
                     <input
-                        type="text" id="changelog" value={changelog} onChange={(e) => setChangelog(e.target.value)} required />
+                        type="text" id="changelog" value={changelog} onChange={(e) => setChangelog(e.target.value)} />
                     <button className="btn btn-primary" onClick={console.log("")}>Add Version</button>
                 </form>
                 <button onClick={() => onCloseMenu()}>Close</button>

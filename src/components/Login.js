@@ -6,6 +6,7 @@ import './Login.css';
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
 
 
@@ -13,7 +14,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post(`${apiUrl}/auth`, { username, password });
+      const response = await axios.post(`${apiUrl}/auth`, { username, password, remember });
       const accessToken = response.data.accessToken;
       localStorage.setItem('accessToken', accessToken);
       onLogin();
@@ -34,6 +35,10 @@ const Login = ({ onLogin }) => {
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="remember">Remember Me</label>
+          <input type="checkbox" id="remember" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
         </div>
         <button type="submit">Login</button>
       </form>
