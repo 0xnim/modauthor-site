@@ -103,7 +103,7 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
           <button type="button" onClick={() => setOwnURL(!ownURL)}>Upload File</button>
           </>)}
 
-          <button className="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Add File
           </button>
         </div>

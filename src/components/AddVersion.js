@@ -72,7 +72,7 @@ const AddVersion = ({ modIDInput, onCloseMenu }) => {
                     <label htmlFor="changelog">Changelog</label>
                     <input
                         type="text" id="changelog" value={changelog} onChange={(e) => setChangelog(e.target.value)} />
-                    <button type="submit" className="btn btn-primary" onClick={console.log("")}>Add Version</button>
+                    <button className="btn btn-primary" onClick={console.log("")}>Add Version</button>
                 </form>
                 <button onClick={() => onCloseMenu()}>Close</button>
             </div>
