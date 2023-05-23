@@ -6,6 +6,7 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
   const [file, setFile] = useState(null);
   const [fileURL, setFileURL] = useState("");
   const [ownURL, setOwnURL] = useState(false);
+  const [fileData, setFileData] = useState();
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const fileApiURL = process.env.REACT_APP_FILE_API_URL;
@@ -18,30 +19,36 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    // Create variable for fileSize and set it to the size of the file
-    let fileSize = file.size;
-
     try {
-      const response = await axios.post(
-        `${fileApiURL}/upload`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
-          },
-        }
-      );
-      console.log(response.data);
-      let path = response.data.uniqueId + "/" + response.data.filename;
-      setFileURL(`https://cdn.astromods.xyz/content/${path}`);
+      if (!ownURL) {
+        let fileSize = file.size;
+        const response = await axios.post(
+          `${fileApiURL}/upload`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data'
+            },
+          }
+        );
+        console.log(response.data);
+        let path = response.data.uniqueId + "/" + response.data.filename;
+        setFileURL(`https://cdn.astromods.xyz/content/${path}`);
 
-      const fileData = {
-        versionId,
-        fileType,
-        fileSize,
-        fileURL: `https://cdn.astromods.xyz/content/${path}`,
-      };
+        setFileData({
+          versionId,
+          fileType,
+          fileSize,
+          fileURL,
+        });
+      } else {
+        setFileData({
+          versionId,
+          fileType,
+          fileURL,
+        });
+      }
 
       const response2 = await axios.post(
         `${apiUrl}/mods/${modId}/versions/${versionId}/files`,
@@ -58,13 +65,12 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
       console.error(error);
     }
   };
-
   return (
     <div className="file-add">
       <form onSubmit={handleAddFile}>
         <div className="form-control" class="form-control">
           <label htmlFor="fileType">File Type</label>
-          <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)}>
+          <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)} required>
               <option value="">Select a file type</option>
               <option value="mod">Mod/DLL</option>
               <option value="pack">Part Pack</option>
