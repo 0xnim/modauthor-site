@@ -64,11 +64,11 @@ const AddVersion = ({ modIDInput, onCloseMenu }) => {
                         type="text" id="modId" value={modId} onChange={(e) => setModId(e.target.value)} readOnly />
                     <label htmlFor="versionNumber">Version</label>
                     <input
-                        type="text" id="versionNumber" value={versionNumber} onChange={(e) => setVersionNumber(e.target.value)} required />
+                        type="text" id="versionNumber" value={versionNumber} onChange={(e) => setVersionNumber(e.target.value)} />
                     <p>Use 'latest' to have it always pull that version.</p>
                     <label htmlFor="releaseDate">Release Date</label>
                     <input
-                        type="date" id="releaseDate" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} required />
+                        type="date" id="releaseDate" value={releaseDate} onChange={(e) => setReleaseDate(e.target.value)} />
                     <label htmlFor="changelog">Changelog</label>
                     <input
                         type="text" id="changelog" value={changelog} onChange={(e) => setChangelog(e.target.value)} />
