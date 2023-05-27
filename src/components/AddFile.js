@@ -11,14 +11,16 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const fileApiURL = process.env.REACT_APP_FILE_API_URL;
 
+
+  
   const handleAddFile = async (e) => {
     e.preventDefault();
-
+  
     const token = localStorage.getItem("accessToken");
-
+  
     const formData = new FormData();
     formData.append('file', file);
-
+  
     try {
       if (!ownURL) {
         let fileSize = file.size;
@@ -35,36 +37,53 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
         console.log(response.data);
         let path = response.data.uniqueId + "/" + response.data.filename;
         setFileURL(`https://cdn.astromods.xyz/content/${path}`);
-
-        setFileData({
+  
+        // Set the fileData state variable correctly
+        const newFileData = {
           versionId,
           fileType,
           fileSize,
-          fileURL,
-        });
+          fileURL: `https://cdn.astromods.xyz/content/${path}`,
+        };
+  
+        // Make the API call with the correct fileData
+        const response2 = await axios.post(
+          `${apiUrl}/mods/${modId}/versions/${versionId}/files`,
+          newFileData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        alert(response2.data);
+        onCloseMenu();
       } else {
-        setFileData({
+        // Set the fileData state variable correctly
+        const newFileData = {
           versionId,
           fileType,
           fileURL,
-        });
+        };
+  
+        // Make the API call with the correct fileData
+        const response2 = await axios.post(
+          `${apiUrl}/mods/${modId}/versions/${versionId}/files`,
+          newFileData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        alert(response2.data);
+        onCloseMenu();
       }
-
-      const response2 = await axios.post(
-        `${apiUrl}/mods/${modId}/versions/${versionId}/files`,
-        fileData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      alert(response2.data);
-      onCloseMenu();
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div className="file-add">
       <form onSubmit={handleAddFile}>
@@ -73,6 +92,7 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
           <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)} required>
               <option value="">Select a file type</option>
               <option value="mod">Mod/DLL</option>
+              <option value="managed-zip">Managed Folder</option>
               <option value="pack">Part Pack</option>
               <option value="texture">Texture</option>
               <option value="mod-zip">Zip</option>
