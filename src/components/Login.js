@@ -1,4 +1,3 @@
-import React from 'react';
 import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, UserButton } from '@clerk/clerk-react';
 import './Login.css';
 

@@ -2,7 +2,8 @@ import "./Dashboard.css";
 
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import { UserButton } from "@clerk/clerk-react";
+import { UserButton, useAuth, useSession } from "@clerk/clerk-react";
+import axios from "axios";
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,6 +11,7 @@ import ModForm from "./AddModForm";
 import ModList from "./ModList";
 
 const Dashboard = ({ onLogout }) => {
+  const apiURL = process.env.REACT_APP_API_URL;
   const notify = () => toast.info('If you want to sponsor and have your mod appear at the top of the list, contact me! contact.urlou@passfwd.com', {
     position: "top-right",
     autoClose: 7000,
@@ -22,9 +24,15 @@ const Dashboard = ({ onLogout }) => {
     toastId: 1,
   });
 
+  const { session } = useSession();
+
   useEffect(() => {
     notify();
-  }, []);
+    session.getToken().then((sessionToken) => {
+      localStorage.setItem("accessToken", sessionToken);
+      
+    });
+  }, [session]);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(true);

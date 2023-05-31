@@ -1,29 +1,19 @@
-import React, { useState } from "react";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
-import { ClerkProvider } from "@clerk/clerk-react";
-import './App.css';
-import Login from "./components/Login";
+import React from "react";
+import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
+import "./App.css";
 import Dashboard from "./components/Dashboard";
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    setLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setLoggedIn(false);
-  };
+  const clerkPublishableKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
   return (
-    <ClerkProvider publishableKey={process.env.REACT_APP_CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey={clerkPublishableKey}>
       <div className="App">
         <SignedIn>
-          <Dashboard onLogout={handleLogout} />
+          <Dashboard />
         </SignedIn>
         <SignedOut>
-          <Login onLogin={handleLogin} />
+          <RedirectToSignIn />
         </SignedOut>
       </div>
     </ClerkProvider>
