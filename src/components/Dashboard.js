@@ -24,9 +24,25 @@ const Dashboard = ({ onLogout }) => {
     toastId: 1,
   });
 
+  const handleFunctionalityNotWorking = () => {
+  // Code to handle functionality not working
+  toast.warning('Limited functionality!', {
+    position: "top-right",
+    autoClose: false,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    toastId: 2,
+  });
+}
+
   const { session } = useSession();
 
   useEffect(() => {
+    handleFunctionalityNotWorking();
     notify();
     session.getToken().then((sessionToken) => {
       localStorage.setItem("accessToken", sessionToken); 
