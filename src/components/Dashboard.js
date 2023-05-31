@@ -1,8 +1,8 @@
-// import ModMenu from './ModMenu';
 import "./Dashboard.css";
 
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import { UserButton } from "@clerk/clerk-react";
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -63,20 +63,16 @@ const Dashboard = ({ onLogout }) => {
               </li>
               <li>
                 <a onClick={notify} href="#">Sponsor</a>
+              </li>
+              <li>
                 <ToastContainer />
               </li>
             </ul>
-            <div class="logout">
-              <button onClick={handleLogout}>Logout</button>
+            <div class="clerk-profile-icon">
+              <UserButton />
             </div>
           </nav>
         )}
-      </div>
-      <div class="content">
-        <div className="dashboard-no-mod-list-container">
-          <h2>Dashboard</h2>
-          <p>Welcome to your dashboard</p>
-        </div>
         <ModList />
         <div className="dashboard-no-mod-list-container">
           <button class="add" onClick={handleOpenModForm}>

@@ -1,58 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { ClerkProvider } from "@clerk/clerk-react";
 import './App.css';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
-import Register from './components/Register';
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 
-function App() {
+const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(true);
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      setLoggedIn(true);
-    }
-  }, []);
 
   const handleLogin = () => {
     setLoggedIn(true);
-    setShowLogin(false);
-  }
+  };
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
     setLoggedIn(false);
-    setShowLogin(true);
-  }
-
-  const handleSwitchToRegister = () => {
-    setShowLogin(false);
-  }
-
-  const handleSwitchToLogin = () => {
-    setShowLogin(true);
-  }
+  };
 
   return (
-    <div className="App">
-      {loggedIn ? (
-        <Dashboard onLogout={handleLogout} />
-      ) : showLogin ? (
-        <>
+    <ClerkProvider publishableKey={process.env.REACT_APP_CLERK_PUBLISHABLE_KEY}>
+      <div className="App">
+        <SignedIn>
+          <Dashboard onLogout={handleLogout} />
+        </SignedIn>
+        <SignedOut>
           <Login onLogin={handleLogin} />
-          <button class="btn-sm" type="button" onClick={handleSwitchToRegister}>Register</button>
-        </>
-      ) : (
-        <>
-          <Register onRegister={handleLogin} />
-          <div className="register-switch-link">
-            Already have an account? <button class="btn-sm" type="button" onClick={handleSwitchToLogin}>Login</button>
-          </div>
-        </>
-      )}
-    </div>
+        </SignedOut>
+      </div>
+    </ClerkProvider>
   );
-}
+};
 
 export default App;
