@@ -29,7 +29,7 @@ const Dashboard = ({ onLogout }) => {
   useEffect(() => {
     notify();
     session.getToken().then((sessionToken) => {
-      localStorage.setItem("accessToken", sessionToken);
+      localStorage.setItem("accessToken", sessionToken); 
       
     });
   }, [session]);
@@ -37,10 +37,6 @@ const Dashboard = ({ onLogout }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(true);
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    onLogout();
-  };
 
   const handleOpenModForm = () => {
     setIsFormOpen(!isFormOpen);
