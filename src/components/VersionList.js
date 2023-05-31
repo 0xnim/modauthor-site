@@ -5,30 +5,27 @@ import VersionMenu from './VersionMenu';
 import './VersionList.css';
 import AddVersion from './AddVersion';
 
-const VersionList = ( modID ) => {
+const VersionList = ({ modID }) => {
   const [mods, setMods] = useState([]);
   const [selectedMod, setSelectedMod] = useState(null);
-  const modId = modID.modID;
   const [isFormOpen, setIsFormOpen] = useState(false);
-  //modID is passed from ModMenu.js
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('accessToken');
     axios
-      .get(`${apiUrl}/mods/${modId}/versions`, {
+      .get(`${apiUrl}/mods/${modID.modID}/versions`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
         setMods(response.data);
-        //console.log(response.data)
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [modID]);
 
   const columns = React.useMemo(
     () => [
@@ -48,10 +45,9 @@ const VersionList = ( modID ) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
-  const handleSelectMod = (modId) => {
-    const mod = mods.find((mod) => mod.modID === modId);
+  const handleSelectMod = (modVersionID) => {
+    const mod = mods.find((mod) => mod.modVersionID === modVersionID);
     setSelectedMod(mod);
-    //console.log("brr");
   };
 
   const handleCloseMenu = () => {
@@ -61,7 +57,6 @@ const VersionList = ( modID ) => {
   const handleOpenVersionForm = () => {
     setIsFormOpen(!isFormOpen);
   };
-    
 
   return (
     <div className="version-list-container">
@@ -83,7 +78,7 @@ const VersionList = ( modID ) => {
               return (
                 <tr
                   {...row.getRowProps()}
-                  onClick={() => handleSelectMod(row.values.modID)}
+                  onClick={() => handleSelectMod(row.original.modVersionID)}
                 >
                   {row.cells.map((cell) => (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
@@ -94,13 +89,23 @@ const VersionList = ( modID ) => {
           </tbody>
         </table>
         <div className="dashboard-no-mod-list-container">
-            <button class="add" onClick={handleOpenVersionForm}>{isFormOpen ? 'Close' : 'Add Version'}</button>
-            {isFormOpen && <AddVersion modIDInput={modID.modID} onCloseMenu={() => setIsFormOpen(false)}
-            />}
+          <button className="add" onClick={handleOpenVersionForm}>
+            {isFormOpen ? 'Close' : 'Add Version'}
+          </button>
+          {isFormOpen && (
+            <AddVersion
+              modIDInput={modID.modID}
+              onCloseMenu={() => setIsFormOpen(false)}
+            />
+          )}
         </div>
       </div>
       {selectedMod && (
-        <VersionMenu versionId={selectedMod.modVersionID} modId={modId} onCloseMenu={handleCloseMenu} />
+        <VersionMenu
+          versionId={selectedMod.modVersionID}
+          modId={selectedMod.modId}
+          onCloseMenu={handleCloseMenu}
+        />
       )}
     </div>
   );
