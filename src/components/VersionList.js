@@ -13,8 +13,9 @@ const VersionList = ({ modID }) => {
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('accessToken');
+    console.log(modID);
     axios
-      .get(`${apiUrl}/mods/${modID.modID}/versions`, {
+      .get(`${apiUrl}/mods/${modID}/versions`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
