@@ -1,5 +1,6 @@
 import React from "react";
 import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
+import { neobrutalism } from '@clerk/themes';
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 
