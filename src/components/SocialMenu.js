@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const ModInfoForm = ( modIDInput, onCloseMenu ) => {
+const ModInfoForm = ( modIDInput ) => {
     const modID = modIDInput.modID;
     const [modId, setModId] = useState(modID);
     const [github, setGithub] = useState("");
@@ -145,50 +145,6 @@ const ModInfoForm = ( modIDInput, onCloseMenu ) => {
         window.location.reload();
     }
 
-
-    // If Mod Info Exists show menu to Edit
-    // If Mod Info does not exist show add Menu
-    // Check if ModInfo exists for that mod
-
-    const handleGetModInfo = async (e) => {
-        e.preventDefault();
-
-        const token = localStorage.getItem("accessToken");
-
-        try {
-            const response = await axios.get(
-                `${apiUrl}/mods/${modID}/info`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
-            console.log(response);
-
-            if (response.status === 200) {
-                setGithub(response.data.github);
-                setForum(response.data.forum);
-                setDonation(response.data.donation);
-                setModInfoExists(true);
-            } else {
-                console.error(response);
-                alert("Failed to get Mod Info.");
-            }
-        } catch (error) {
-            if (error.response && error.response.status === 401) {
-                console.log("Unauthorized access");
-                // handle unauthorized access here
-            } else {
-                console.error(error);
-                alert("Failed to get Mod Info.");
-            }
-        }
-    }
-
-    
-    console.log(modInfoExists);
     if (modInfoExists) {
         return (
             <div>
@@ -202,7 +158,7 @@ const ModInfoForm = ( modIDInput, onCloseMenu ) => {
                         <input type="text" id="donation" value={donation} onChange={(e) => setDonation(e.target.value)} />
                         <button type="submit">Update Mod Info</button>
                     </form>
-                    <button onClick={onCloseMenu}>Cancel</button>
+                    <button onClick={() => window.location.reload()}>Cancel</button>
                 </div>
             </div>
         );
@@ -219,7 +175,8 @@ const ModInfoForm = ( modIDInput, onCloseMenu ) => {
                         <input type="text" id="donation" value={donation} onChange={(e) => setDonation(e.target.value)} />
                         <button type="submit">Add Mod Info</button>
                     </form>
-                    <button onClick={onCloseMenu}>Cancel</button>
+                    {/* Cancel button */}
+                    <button onClick={() => window.location.reload()}>Cancel</button>
                 </div>
             </div>
         );
