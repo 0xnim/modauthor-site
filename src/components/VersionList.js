@@ -95,7 +95,7 @@ const VersionList = ({ modID }) => {
           </button>
           {isFormOpen && (
             <AddVersion
-              modIDInput={modID.modID}
+              modIDInput={modID}
               onCloseMenu={() => setIsFormOpen(false)}
             />
           )}

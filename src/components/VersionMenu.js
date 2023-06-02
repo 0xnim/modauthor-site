@@ -17,6 +17,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [dependencyAddOpen, setDependencyAddOpen] = useState(false);
   const [dependencyEditOpen, setDependencyEditOpen] = useState(false);
   const [reloadCurrent, setReloadCurrent] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -223,6 +224,17 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
             </>
           )}
         </div>
+        <div className="version-section">
+          <button onClick={console.log("delete")}>Delete</button>
+          <div>
+            <h2>Delete</h2>
+            <p>
+              Are you sure you want to delete this version? This action cannot
+              be undone.
+            </p>
+          </div>
+        </div>
+          
       </div>
       <button class="bottom" onClick={onCloseMenu}>
         Close
