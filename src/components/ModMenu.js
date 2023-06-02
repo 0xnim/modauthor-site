@@ -66,6 +66,11 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
     setIsSocialOpen(!isSocialOpen);
   };
 
+  const handleExitSocial = () => {
+    setIsSocialOpen(false);
+    console.log("Exit Social");
+  };
+
   
 
   if (!mod) {
@@ -120,7 +125,7 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
       )}
       <button onClick={handleSocialButton}>Social</button>
       {isSocialOpen && (
-      <ModInfoForm modID={modId} onCloseMenu={handleSocialButton}/>
+      <ModInfoForm modID={modId} onCloseMenu={handleExitSocial}/>
       )}
       {!editable && <button onClick={onCloseMenu}>Close</button> }
       
