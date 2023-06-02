@@ -1,7 +1,7 @@
 import "./VersionMenu.css";
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import AddFile from "./AddFile";
 
@@ -17,7 +17,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
   const [dependencyAddOpen, setDependencyAddOpen] = useState(false);
   const [dependencyEditOpen, setDependencyEditOpen] = useState(false);
   const [reloadCurrent, setReloadCurrent] = useState(false);
-  const [deleting, setDeleting] = useState(false);
+  const dialogRef = useRef(null);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -152,6 +152,34 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
     setReloadCurrent(true);
   };
 
+  const handleDeleteVersion = async (modId, versionId) => {
+    console.log("Deleting version with ID:", versionId);
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const token = localStorage.getItem("accessToken");
+
+    try {
+      const response = await axios.delete(
+        `${apiUrl}/mods/${modId}/versions/${versionId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert(response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const openDialog = () => {
+    dialogRef.current.showModal();
+  };
+
+  const closeDialog = () => {
+    dialogRef.current.close();
+  };  
     
 
   return (
@@ -225,16 +253,16 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
           )}
         </div>
         <div className="version-section">
-          <button onClick={console.log("delete")}>Delete</button>
-          <div>
+          <button onClick={openDialog}>Delete</button>
+          <dialog ref={dialogRef} className="delete">
             <h2>Delete</h2>
             <p>
-              Are you sure you want to delete this version? This action cannot
-              be undone.
+              Are you sure you want to delete this version? This action cannot be undone.
             </p>
-          </div>
-        </div>
-          
+            <button onClick={() => handleDeleteVersion(modId, versionId)}>Confirm</button>
+            <button onClick={closeDialog}>Cancel</button>
+          </dialog>
+        </div>          
       </div>
       <button class="bottom" onClick={onCloseMenu}>
         Close
