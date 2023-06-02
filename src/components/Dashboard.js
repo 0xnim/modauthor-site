@@ -26,7 +26,7 @@ const Dashboard = ({ onLogout }) => {
 
   const handleFunctionalityNotWorking = () => {
   // Code to handle functionality not working
-  toast.warning('Limited functionality!', {
+  toast.warning('Limited functionality! If mods are not showing up contact support@astromods.xyz', {
     position: "top-right",
     autoClose: false,
     hideProgressBar: false,
