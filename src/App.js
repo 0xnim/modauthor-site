@@ -7,7 +7,12 @@ const App = () => {
   const clerkPublishableKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
   return (
-    <ClerkProvider publishableKey={clerkPublishableKey}>
+    <ClerkProvider 
+      publishableKey={clerkPublishableKey}
+      appearance={{
+        baseTheme: neobrutalism
+      }}
+    >
       <div className="App">
         <SignedIn>
           <Dashboard />

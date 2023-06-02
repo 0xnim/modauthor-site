@@ -5,6 +5,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^4.17.0",
     "@clerk/clerk-sdk-node": "^4.10.2",
+    "@clerk/themes": "^1.7.4",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@testing-library/jest-dom": "^5.16.5",

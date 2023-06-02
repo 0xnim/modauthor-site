@@ -30,7 +30,6 @@ const ModList = (  ) => {
       { Header: 'Mod ID', accessor: 'modID' },
       { Header: 'Name', accessor: 'modName' },
       { Header: 'Description', accessor: 'modDescription' },
-      { Header: 'Author', accessor: 'modAuthor' },
       { Header: 'Version', accessor: 'modVersion' },
       { Header: 'Release Date', accessor: 'modReleaseDate' },
       { Header: 'Tags', accessor: 'modTags' },
