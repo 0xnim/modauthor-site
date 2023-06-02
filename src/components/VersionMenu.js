@@ -259,7 +259,7 @@ const VersionMenu = ({ versionId, modId, onCloseMenu }) => {
             <p>
               Are you sure you want to delete this version? This action cannot be undone.
             </p>
-            <button onClick={() => handleDeleteVersion(modId, versionId)}>Confirm</button>
+            <button onClick={() => handleDeleteVersion(modId, versionId)} class="confirm">Confirm</button>
             <button onClick={closeDialog}>Cancel</button>
           </dialog>
         </div>          
