@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const ModInfoForm = ( modIDInput ) => {
+const ModInfoForm = ( modIDInput, onCloseMenu ) => {
     const modID = modIDInput.modID;
     const [modId, setModId] = useState(modID);
     const [github, setGithub] = useState("");
@@ -186,6 +186,7 @@ const ModInfoForm = ( modIDInput ) => {
             }
         }
     }
+
     
     console.log(modInfoExists);
     if (modInfoExists) {
@@ -201,6 +202,7 @@ const ModInfoForm = ( modIDInput ) => {
                         <input type="text" id="donation" value={donation} onChange={(e) => setDonation(e.target.value)} />
                         <button type="submit">Update Mod Info</button>
                     </form>
+                    <button onClick={onCloseMenu}>Cancel</button>
                 </div>
             </div>
         );
@@ -217,6 +219,7 @@ const ModInfoForm = ( modIDInput ) => {
                         <input type="text" id="donation" value={donation} onChange={(e) => setDonation(e.target.value)} />
                         <button type="submit">Add Mod Info</button>
                     </form>
+                    <button onClick={onCloseMenu}>Cancel</button>
                 </div>
             </div>
         );

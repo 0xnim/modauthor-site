@@ -120,7 +120,7 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
       )}
       <button onClick={handleSocialButton}>Social</button>
       {isSocialOpen && (
-      <ModInfoForm modID={modId}/>
+      <ModInfoForm modID={modId} onCloseMenu={handleSocialButton}/>
       )}
       {!editable && <button onClick={onCloseMenu}>Close</button> }
       
