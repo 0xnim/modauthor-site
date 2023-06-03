@@ -124,6 +124,14 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
           readOnly={!editable}
           onChange={handleInputChange}
         />
+        <label for="modImage">Image:</label>
+        <input
+          type="text"
+          name="modImage"
+          value={modifiedMod.modImage}
+          readOnly={!editable}
+          onChange={handleInputChange}
+        />
         <label for="modTags">Tags:</label>
         <input
           type="text"
@@ -133,14 +141,6 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
           onChange={handleInputChange}
         />
         <div class="tag-instructions">Separate by commas</div>
-        <label for="modImage">Image:</label>
-        <input
-          type="text"
-          name="modImage"
-          value={modifiedMod.modImage}
-          readOnly={!editable}
-          onChange={handleInputChange}
-        />
       </div>
       
       {!editable ? (
