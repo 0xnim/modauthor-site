@@ -1,5 +1,20 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const Dialog = styled.dialog`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  padding: 20px;
+  heright: auto;
+  background-color: #293646;
+  border: 1px solid #1d2736;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
 
 const AddModForm = () => {
   const dialogRef = useRef(null);
@@ -69,9 +84,9 @@ const AddModForm = () => {
 
   return (
     <>
-      <button onClick={handleOpenDialog}>Open Dialog</button>
+      <button id="add-btn-1" onClick={handleOpenDialog}>Add Mod</button>
 
-      <dialog ref={dialogRef} className="modal-dialog">
+      <Dialog ref={dialogRef}>
         <form onSubmit={handleAddMod}>
           <div className="form-group">
             <label htmlFor="modId">Mod ID:</label>
@@ -100,7 +115,7 @@ const AddModForm = () => {
           <button type="submit">Add Mod</button>
           <button onClick={handleCloseDialog}>Close</button>
         </form>
-      </dialog>
+      </Dialog>
     </>
   );
 };
