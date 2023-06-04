@@ -35,3 +35,14 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   }
   
+  .modal-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: rgba(41, 54, 70, 1);
+    border: 1px solid rgba(41, 54, 70, 1);
+    padding: 20px;
+  }
+  

@@ -1,46 +1,57 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import axios from 'axios';
 
-
-
-const AddModForm = () => { //{ onAddMod }
-  const [modId, setModId] = useState('');
-  const [modName, setModName] = useState('');
-  const [modDescription, setModDescription] = useState('');
-  const [modVersion, setModVersion] = useState('');
-  const [modReleaseDate, setModReleaseDate] = useState('');
-  const [modTags, setModTags] = useState('');
+const AddModForm = () => {
+  const dialogRef = useRef(null);
+  const modIdRef = useRef(null);
+  const modNameRef = useRef(null);
+  const modDescriptionRef = useRef(null);
+  const modVersionRef = useRef(null);
+  const modReleaseDateRef = useRef(null);
+  const modTagsRef = useRef(null);
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const handleOpenDialog = () => {
+    dialogRef.current.showModal();
+  };
+
+  const handleCloseDialog = () => {
+    dialogRef.current.close();
+  };
+
   const handleAddMod = async (e) => {
     e.preventDefault();
-  
+
     const token = localStorage.getItem('accessToken');
-  
+
     try {
-      const response = await axios.post(`${apiUrl}/mods`, {
-        modId,
-        modName,
-        modDescription,
-        modVersion,
-        modReleaseDate,
-        modTags
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const response = await axios.post(
+        `${apiUrl}/mods`,
+        {
+          modId: modIdRef.current.value,
+          modName: modNameRef.current.value,
+          modDescription: modDescriptionRef.current.value,
+          modVersion: modVersionRef.current.value,
+          modReleaseDate: modReleaseDateRef.current.value,
+          modTags: modTagsRef.current.value,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-  
+      );
+
       if (response.status === 201) {
-        //onAddMod(response.data);
         alert('Mod added successfully!');
-        setModId('');
-        setModName('');
-        setModDescription('');
-        setModVersion('');
-        setModReleaseDate('');
-        setModTags('');
+        modIdRef.current.value = '';
+        modNameRef.current.value = '';
+        modDescriptionRef.current.value = '';
+        modVersionRef.current.value = '';
+        modReleaseDateRef.current.value = '';
+        modTagsRef.current.value = '';
+        handleCloseDialog();
       } else {
         console.error(response);
         alert('Failed to add mod.');
@@ -57,37 +68,40 @@ const AddModForm = () => { //{ onAddMod }
   };
 
   return (
-    <form onSubmit={handleAddMod}>
-      <div className="form-group">
-        <label htmlFor="modId">Mod ID:</label>
-        <input type="text" id="modId" value={modId} onChange={(e) => setModId(e.target.value)} required />
-      </div>
-      <div className="form-group">
-        <label htmlFor="modName">Mod Name:</label>
-        <input type="text" id="modName" value={modName} onChange={(e) => setModName(e.target.value)} required />
-      </div>
-      <div className="form-group">
-        <label htmlFor="modDescription">Mod Description:</label>
-        <textarea
-          id="modDescription"
-          value={modDescription}
-          onChange={(e) => setModDescription(e.target.value)}
-        ></textarea>
-      </div>
-      <div className="form-group">
-        <label htmlFor="modVersion">Mod Version:</label>
-        <input type="text" id="modVersion" value={modVersion} onChange={(e) => setModVersion(e.target.value)} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="modReleaseDate">Mod Release Date:</label>
-        <input type="date" id="modReleaseDate" value={modReleaseDate} onChange={(e) => setModReleaseDate(e.target.value)} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="modTags">Mod Tags:</label>
-        <input type="text" id="modTags" value={modTags} onChange={(e) => setModTags(e.target.value)} />
-      </div>
-      <button type="submit">Add Mod</button>
-    </form>
+    <>
+      <button onClick={handleOpenDialog}>Open Dialog</button>
+
+      <dialog ref={dialogRef} className="modal-dialog">
+        <form onSubmit={handleAddMod}>
+          <div className="form-group">
+            <label htmlFor="modId">Mod ID:</label>
+            <input type="text" id="modId" ref={modIdRef} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="modName">Mod Name:</label>
+            <input type="text" id="modName" ref={modNameRef} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="modDescription">Mod Description:</label>
+            <textarea id="modDescription" ref={modDescriptionRef}></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="modVersion">Mod Version:</label>
+            <input type="text" id="modVersion" ref={modVersionRef} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="modReleaseDate">Mod Release Date:</label>
+            <input type="date" id="modReleaseDate" ref={modReleaseDateRef} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="modTags">Mod Tags:</label>
+            <input type="text" id="modTags" ref={modTagsRef} />
+          </div>
+          <button type="submit">Add Mod</button>
+          <button onClick={handleCloseDialog}>Close</button>
+        </form>
+      </dialog>
+    </>
   );
 };
 
