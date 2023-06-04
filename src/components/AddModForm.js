@@ -1,19 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import jwtDecode from 'jwt-decode';
 
 const Dialog = styled.dialog`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: auto;
-  height: auto;
-  padding: 20px;
-  heright: auto;
-  background-color: #293646;
-  border: 1px solid #1d2736;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  // dialog styles...
 `;
 
 const AddModForm = () => {
@@ -26,6 +17,17 @@ const AddModForm = () => {
   const modTagsRef = useRef(null);
 
   const apiUrl = process.env.REACT_APP_API_URL;
+
+  const [decodedToken, setDecodedToken] = useState(null);
+  const [owner, setOwner] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      const decoded = jwtDecode(token);
+      setDecodedToken(decoded);
+    }
+  }, []);
 
   const handleOpenDialog = () => {
     dialogRef.current.showModal();
@@ -50,6 +52,7 @@ const AddModForm = () => {
           modVersion: modVersionRef.current.value,
           modReleaseDate: modReleaseDateRef.current.value,
           modTags: modTagsRef.current.value,
+          owner: owner // Include the owner value in the request
         },
         {
           headers: {
@@ -82,11 +85,15 @@ const AddModForm = () => {
     }
   };
 
+  const handleOwnerSelect = (value) => {
+    setOwner(value);
+  };
+
   return (
     <>
       <button id="add-btn-1" onClick={handleOpenDialog}>Add Mod</button>
 
-      <Dialog ref={dialogRef}>
+      <dialog ref={dialogRef}>
         <form onSubmit={handleAddMod}>
           <div className="form-group">
             <label htmlFor="modId">Mod ID:</label>
@@ -112,10 +119,31 @@ const AddModForm = () => {
             <label htmlFor="modTags">Mod Tags:</label>
             <input type="text" id="modTags" ref={modTagsRef} />
           </div>
+          {decodedToken && decodedToken.org_slug && (
+            <div className="form-group">
+              <label htmlFor="owner">Owner:</label>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => handleOwnerSelect('me')}
+                  className={owner === 'me' ? 'active' : ''}
+                >
+                  Me
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleOwnerSelect(decodedToken.org_slug)}
+                  className={owner === decodedToken.org_slug ? 'active' : ''}
+                >
+                  {decodedToken.org_slug}
+                </button>
+              </div>
+            </div>
+          )}
           <button type="submit">Add Mod</button>
           <button onClick={handleCloseDialog}>Close</button>
         </form>
-      </Dialog>
+      </dialog>
     </>
   );
 };
