@@ -124,7 +124,7 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
         <input
           type="text"
           name="modIcon"
-          value={modifiedMod.modImage}
+          value={modifiedMod.modIcon}
           readOnly={!editable}
           onChange={handleInputChange}
         />
