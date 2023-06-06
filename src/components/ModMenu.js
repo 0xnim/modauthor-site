@@ -63,10 +63,6 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
     setIsVersionsOpen(!isVersionsOpen);
   };
 
-  const handleSocialButton = () => {
-    setIsSocialOpen(!isSocialOpen);
-  };
-
   const handleDeleteMod = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('accessToken');
@@ -147,15 +143,15 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
         <>
           <button onClick={() => setEditable(true)}>Edit</button>
           <button onClick={openDialog}>Delete</button>
-          <dialog ref={dialogRef} className="delete">
+          <dialog ref={dialogRef} className="delete dialog">
             <h2>Delete</h2>
             <p>
               Are you sure you want to delete this version? This action cannot be undone.
             </p>
-            <button onClick={() => handleDeleteMod(modId)} class="confirm">Confirm</button>
+            <button type="button" onClick={() => handleDeleteMod(modId)} class="confirm">Confirm</button>
             <button onClick={closeDialog}>Cancel</button>
           </dialog>
-          <button onClick={handleSocialButton}>Social</button>
+          <ModInfoForm modID={modId}/>
           
           <br></br>
           <button onClick={handleVersionsButton}>Versions</button>
@@ -167,9 +163,6 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
           <button onClick={handleCancelClick}>Cancel</button>
           <button onClick={handleSaveClick}>Save</button>
         </>
-      )}
-      {isSocialOpen && (
-      <ModInfoForm modID={modId}/>
       )}
       {isVersionsOpen && (
         <VersionList modID={modId}/>

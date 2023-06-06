@@ -113,8 +113,8 @@ const AddModForm = () => {
             <input type="text" id="modTags" ref={modTagsRef} />
           </div>
           <button type="submit">Add Mod</button>
-          <button onClick={handleCloseDialog}>Close</button>
         </form>
+        <button type="button" onClick={handleCloseDialog}>Close</button>
       </Dialog>
     </>
   );
