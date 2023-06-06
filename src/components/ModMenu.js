@@ -120,10 +120,10 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
           readOnly={!editable}
           onChange={handleInputChange}
         />
-        <label for="modImage">Image:</label>
+        <label for="modIcon">Image:</label>
         <input
           type="text"
-          name="modImage"
+          name="modIcon"
           value={modifiedMod.modImage}
           readOnly={!editable}
           onChange={handleInputChange}
