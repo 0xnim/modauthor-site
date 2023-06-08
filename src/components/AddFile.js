@@ -93,6 +93,7 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
               <option value="">Select a file type</option>
               <option value="mod">Mod/DLL</option>
               <option value="managed-zip">Managed Folder</option>
+              <option value="managed-file">Managed File</option>
               <option value="pack">Part Pack</option>
               <option value="texture">Texture</option>
               <option value="mod-zip">Zip</option>
