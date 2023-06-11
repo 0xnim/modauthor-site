@@ -156,6 +156,9 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
           <br></br>
           <button onClick={handleVersionsButton}>Versions</button>
           <br></br>
+          {isVersionsOpen && (
+          <> <VersionList modID={modId}/> <br></br> </>
+          )}
           <button onClick={onCloseMenu}>Close</button>
         </>
       ) : (
@@ -163,9 +166,6 @@ const ModMenu = ({ modObject, onCloseMenu }) => {
           <button onClick={handleCancelClick}>Cancel</button>
           <button onClick={handleSaveClick}>Save</button>
         </>
-      )}
-      {isVersionsOpen && (
-        <VersionList modID={modId}/>
       )}
     </div>
   );

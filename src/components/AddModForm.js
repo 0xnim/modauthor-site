@@ -3,18 +3,18 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 const Dialog = styled.dialog`
-position: fixed;
-top: 90%;
-left: 50%;  
-transform: translate(-50%, -50%);
-width: auto;
-height: auto;
-padding: 20px;
-height: 85vh;
-heright: auto;
-background-color: #293646;
-border: 1px solid #1d2736;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 90%;
+  left: 50%;  
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  padding: 20px;
+  height: 85vh;
+  heright: auto;
+  background-color: #293646;
+  border: 1px solid #1d2736;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const AddModForm = () => {
