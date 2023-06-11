@@ -92,13 +92,12 @@ const AddFile = ({ modId, versionId, onCloseMenu }) => {
           <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)} required>
               <option value="">Select a file type</option>
               <option value="mod">Mod/DLL</option>
-              <option value="managed-zip">Managed Folder</option>
-              <option value="managed-file">Managed File</option>
+              <option value="managed-file">Managed/DLL</option>
               <option value="pack">Part Pack</option>
               <option value="texture">Texture</option>
               <option value="mod-zip">Zip</option>
               <option value="plugin">Plugin</option>
-              <option value="planet">Planet</option>
+              <option value="root">Root Folder</option>
               {/* add more options as needed */}
           </select>
           {/* Let user upload file by reuqesting to ${fileApiURL}/upload */}
