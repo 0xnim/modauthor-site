@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -24,7 +24,8 @@ const AddModForm = () => {
   const modDescriptionRef = useRef(null);
   const modVersionRef = useRef(null);
   const modReleaseDateRef = useRef(null);
-  const modTagsRef = useRef(null);
+  const [modTags, setModTags] = useState([]);
+  const [customTag, setCustomTag] = useState('');
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -41,7 +42,10 @@ const AddModForm = () => {
 
     const token = localStorage.getItem('accessToken');
 
+    console.log(modTags);
+
     try {
+      const modTagsString = [...modTags, customTag].join(',');
       const response = await axios.post(
         `${apiUrl}/mods`,
         {
@@ -50,7 +54,7 @@ const AddModForm = () => {
           modDescription: modDescriptionRef.current.value,
           modVersion: modVersionRef.current.value,
           modReleaseDate: modReleaseDateRef.current.value,
-          modTags: modTagsRef.current.value,
+          modTags: modTagsString,
         },
         {
           headers: {
@@ -66,7 +70,8 @@ const AddModForm = () => {
         modDescriptionRef.current.value = '';
         modVersionRef.current.value = '';
         modReleaseDateRef.current.value = '';
-        modTagsRef.current.value = '';
+        setModTags([]);
+        setCustomTag('');
         handleCloseDialog();
       } else {
         console.error(response);
@@ -82,6 +87,21 @@ const AddModForm = () => {
       }
     }
   };
+
+  const handleModTagChange = (event) => {
+    const tag = event.target.value;
+    const checked = event.target.checked;
+    if (checked) {
+      setModTags((prevTags) => [...prevTags, tag]);
+    } else {
+      setModTags((prevTags) => prevTags.filter((prevTag) => prevTag !== tag));
+    }
+  };
+
+  const handleCustomTagChange = (event) => {
+    setCustomTag(event.target.value);
+  };
+
 
   return (
     <>
@@ -111,8 +131,27 @@ const AddModForm = () => {
           </div>
           <div className="form-group">
             <label htmlFor="modTags">Mod Tags:</label>
-            <input type="text" id="modTags" ref={modTagsRef} />
+            <div>
+              <label className="checkbox-button">
+                <input type="checkbox" name="modTags" value="mod" onChange={handleModTagChange} />
+                Mod
+              </label>
+              <label className="checkbox-button">
+                <input type="checkbox" name="modTags" value="part" onChange={handleModTagChange} />
+                Part Pack
+              </label>
+              <label className="checkbox-button">
+                <input type="checkbox" name="modTags" value="plugin" onChange={handleModTagChange} />
+                Plugin
+              </label>
+              <div>
+                <input type="text" name="customTag" value={customTag} onChange={handleCustomTagChange} />
+                <button type="button" onClick={() => setModTags((prevTags) => [...prevTags, customTag])}>Add Tag</button>
+                <br></br>
+              </div>
+            </div>
           </div>
+          <br></br>
           <button type="submit">Add Mod</button>
         </form>
         <button type="button" onClick={handleCloseDialog}>Close</button>
