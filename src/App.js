@@ -9,16 +9,6 @@ const App = () => {
   const clerkPublishableKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
   return (
-    <ToastContainer
-      position="top-right"
-      autoClose={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      theme="dark"
-    />
     <ClerkProvider 
       publishableKey={clerkPublishableKey}
       appearance={
