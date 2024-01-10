@@ -3,11 +3,26 @@ import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from "@clerk/cle
 import { neobrutalism } from '@clerk/themes';
 import "./App.css";
 import Dashboard from "./components/Dashboard";
+import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
   const clerkPublishableKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
   return (
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
+      {/* Same as */}
+    <ToastContainer />
     <ClerkProvider 
       publishableKey={clerkPublishableKey}
       appearance={
