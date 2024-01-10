@@ -21,8 +21,6 @@ const App = () => {
       pauseOnHover
       theme="light"
       />
-      {/* Same as */}
-    <ToastContainer />
     <ClerkProvider 
       publishableKey={clerkPublishableKey}
       appearance={
