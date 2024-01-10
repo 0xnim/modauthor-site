@@ -10,17 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import ModForm from "./AddModForm";
 import ModList from "./ModList";
 
-toast('🦄 Wow so easy!', {
-  position: "top-right",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: "light",
-});
-
 const Dashboard = ({ onLogout }) => {
   const apiURL = process.env.REACT_APP_API_URL;
 
