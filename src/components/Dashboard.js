@@ -10,19 +10,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import ModForm from "./AddModForm";
 import ModList from "./ModList";
 
+toast('🦄 Wow so easy!', {
+  position: "top-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+});
+
 const Dashboard = ({ onLogout }) => {
   const apiURL = process.env.REACT_APP_API_URL;
-  toast.warning('Limited functionality! If mods are not showing up contact support@astromods.xyz', {
-    position: "top-right",
-    autoClose: false,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-    toastId: 2,
-  });
 
   const handleFunctionalityNotWorking = () => {
   // Code to handle functionality not working
